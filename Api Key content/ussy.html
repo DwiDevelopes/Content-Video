@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Animation with Text</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="heart"></div>
+    <div class="typewriter">
+      <p id="typing-text"></p>
+    </div>
+    <button id="open-letter">Buka Surat</button>
+    <div class="letter" id="letter">
+      <div class="letter-content">
+        <p>Halo Ussy,</p>
+        <p>Terima kasih atas segala sesuatu yang telah kamu lakukan. Kamu sangat berarti bagiku.</p>
+        <p>Salam hangat Someone Special,</p>
+        <p>Kaka Dwi</p>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+<style>
+body {
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .container {
+    text-align: center;
+  }
+  .heart {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    margin: 0 auto;
+    transform: rotate(45deg);
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+  .heart:before, .heart:after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  
+  .heart:before {
+    left: 0;
+    top: -50px;
+  }
+  
+  .heart:after {
+    top: 0;
+    left: 50px;
+  }
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+  .typewriter p {
+    display: inline-block;
+    font-size: 24px;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #333;
+    padding-right: 5px;
+    animation: typing 4s steps(30) 1s forwards, blink 0.75s step-end infinite;
+  }
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  .letter {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: openLetter 1s forwards;
+  }
+  .letter-content {
+    text-align: left;
+  }
+  @keyframes openLetter {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+  }
+  button:hover {
+    background-color: darkred;
+  }
+</style>
+<script>
+const text = "Terima Kasih Ussy";
+let index = 0;
+const typingElement = document.getElementById("typing-text");
+
+function typeText() {
+  if (index < text.length) {
+    typingElement.textContent += text.charAt(index);
+    index++;
+    setTimeout(typeText, 100);
+  }
+}
+window.onload = () => {
+  typeText();
+};
+
+document.getElementById("open-letter").addEventListener("click", function() {
+  const letter = document.getElementById("letter");
+  letter.style.display = "block";
+  setTimeout(() => {
+    letter.style.display = "none";
+  }, 5000); // Surat akan hilang setelah 5 detik
+});
+</script>
